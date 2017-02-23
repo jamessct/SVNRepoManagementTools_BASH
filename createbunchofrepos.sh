@@ -16,12 +16,12 @@ sortArguments() {
 			else
 				REPO=$SVN/$INPUT
 				ARRAY+=($REPO)
-				createRepo $ARRAY[@]
 			fi
 		else
 			incrementTests $ARG
 		fi
 	done
+	createRepo $ARRAY[@]
 }
 	
 incrementTests() {
@@ -38,7 +38,7 @@ incrementTests() {
 
 createRepo() {
 	for ITEM in ${ARRAY[@]}; do
-		mkdir $ITEM
+		mkdir $ITEM >2/Dev/Null
 		svnadmin create $ITEM
 		echo -e "${GREEN}SUCCESS! Your new repository has been created at $ITEM."
 	done	
