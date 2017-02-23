@@ -11,9 +11,13 @@ RED="\033[1;31m"
 sortArguments() {
 	for ARG in $@; do
 		if [[ -n ${INPUT//[0-9]/} ]]; then
-			REPO=$SVN/$INPUT
-			ARRAY+=($REPO)
-			createRepo $ARRAY[@]
+			if [ -d $SVN/$INPUT ]; then
+				echo -e "${RED}ERROR! A directory already exists at $SVN/$INPUT. No action will be taken for this request."
+			else
+				REPO=$SVN/$INPUT
+				ARRAY+=($REPO)
+				createRepo $ARRAY[@]
+			fi
 		else
 			incrementTests $ARG
 		fi
