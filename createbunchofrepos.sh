@@ -29,6 +29,7 @@ incrementTests() {
 		else
 				ARRAY+=($SVN/test$INC)
 		fi
+		createRepo $ARRAY
 	done
 }
 
