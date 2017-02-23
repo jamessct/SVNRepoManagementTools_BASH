@@ -8,13 +8,12 @@ ARRAY=()
 GREEN="\033[1;32m"
 RED="\033[1;31m"
 
-#alternative refactored version
 sortArguments() {
 	for ARG in $@; do
 		if [[ -n ${INPUT//[0-9]/} ]]; then
 			REPO=$SVN/$INPUT
 			ARRAY+=($REPO)
-			createRepo $ARRAY
+			createRepo $ARRAY[@]
 		else
 			incrementTests $ARG
 		fi
@@ -24,17 +23,17 @@ sortArguments() {
 incrementTests() {
 	until [ $INC = $ARG ]; do	
 		INC=$((INC+1))
-		if [ -d /$SVN/test$INC ]; then
-			echo -e "${RED}ERROR! A directory already exists at $ITEM. No action will be taken for this request."
+		if [ -d $SVN/test$INC ]; then
+			echo -e "${RED}ERROR! A directory already exists at $SVN/test$INC. No action will be taken for this request."
 		else
 				ARRAY+=($SVN/test$INC)
 		fi
-		createRepo $ARRAY
 	done
+	createRepo $ARRAY[@]
 }
 
 createRepo() {
-	for ITEM in $ARRAY; do
+	for ITEM in ${ARRAY[@]}; do
 		mkdir $ITEM
 		svnadmin create $ITEM
 		echo -e "${GREEN}SUCCESS! Your new repository has been created at $ITEM."
@@ -44,7 +43,7 @@ createRepo() {
 if [ $# -eq 0 ]; then
 	REPO="$SVN/test"
 	ARRAY+=($REPO)
-	createRepo $ARRAY
+	createRepo $ARRAY[@]
 else
 	sortArguments $@
 fi

@@ -9,10 +9,9 @@ GREEN="\033[1;32m"
 
 cd $SVNREPO
 
-#Determining whether the argument is a file or not
 for ARG in $@; do
 	echo "$ARG"
-	if [ $ARG == "/" ]; then
+	if [ $ARG == "*/*" ]; then
 		for REPO in $ARG; do
 			ARRAY+=($REPO)
 		done
@@ -43,3 +42,6 @@ for REPO in ${ARRAY[@]}; do
 		echo -e "${RED}ERROR! The repository $REPO does not exist. No backup has been made for this argument."
 	fi
 done
+
+
+
