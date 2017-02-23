@@ -9,18 +9,9 @@ GREEN="\033[1;32m"
 RED="\033[1;31m"
 
 #alternative refactored version
-
-if [ $# -eq 0 ]; then
-	REPO="$SVN/test"
-	ARRAY+=($REPO)
-	createRepo $ARRAY
-else
-	sortArguments $@
-fi
-
 sortArguments() {
 	for ARG in $@; do
-		if [[ -n £{INPUT//[0-9]/} ]]; then
+		if [[ -n ${INPUT//[0-9]/} ]]; then
 			REPO=$SVN/$INPUT
 			ARRAY+=($REPO)
 			createRepo $ARRAY
@@ -28,6 +19,7 @@ sortArguments() {
 			incrementTests $ARG
 		fi
 	done
+}
 	
 incrementTests() {
 	until [ $INC = $ARG ]; do	
@@ -47,6 +39,16 @@ createRepo() {
 		echo -e "${GREEN}SUCCESS! Your new repository has been created at $ITEM."
 	done	
 }
+
+if [ $# -eq 0 ]; then
+	REPO="$SVN/test"
+	ARRAY+=($REPO)
+	createRepo $ARRAY
+else
+	sortArguments $@
+fi
+
+
 
 
 
