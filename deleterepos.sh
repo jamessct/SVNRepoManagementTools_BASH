@@ -1,12 +1,16 @@
 #!/bin/bash
 
 REPOS="/var/svn"
-GREEN="\033[1;32M"
-RED="\033[1;31M"
+GREEN="\033[1;32m"
+RED="\033[1;31m"
+YELLOW="\033[1;33m]"
 
 if [ $# -eq 0 ]; then
-	rm -rf $REPOS/*
-	echo -e "${GREEN}Success! $REPOS is empty."
+	for REPO in $REPOS/*; do
+		rm -rf $REPOS/*
+		echo -e "${YELLOW}$REPO has been removed."
+	done
+	echo -e "${GREEN}SUCCESS! message (:"
 else
 	for ARG in $@; do
 		if [ -d $REPOS/$ARG ]; then
