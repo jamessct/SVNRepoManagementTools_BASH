@@ -9,23 +9,23 @@ RED="\033[1;31m"
 GREEN="\033[1;32m"
 
 checkForSlashes() {
-	for ARG in ${ARRAY[@]}; do
+	for ARG in ${ARRAY1[@]}; do
 		if [[ $ARG == *"/"* ]]; then
 			for REPO in $ARRAY; do
 				ARRAY2+=($REPO)
-				backupRepos $ARRAY2
+				backupRepos $ARRAY
 			done
 		else
 			for REPO in $ARRAY; do
 				ARRAY+=($SVNREPO/$REPO)
-				backupRepo $ARRAY2
+				backupRepo $ARRAY
 			done
 		fi
 	done
 }
 
 backupRepos() {
-	for REPO in ${ARRAY2[@]}; do
+	for REPO in ${ARRAY[@]}; do
 		if [ -f $SVNREPO/$REPO/format ]; then
 			svnadmin dump $SVNREPO/$REPO -r HEAD &>/dev/null | gzip > $TEMP/$REPO.svn.gzip
 			echo -e "${GREEN}SUCCESS! Backup of $REPO complete."
@@ -35,14 +35,16 @@ backupRepos() {
 	done
 }
 
+cd $SVNREPO
+
 if [ $# -eq 0 ]; then
 	for REPO in *; do
 		ARRAY+=($REPO)
-		backupRepoo $ARRAY
 	done
+	backupRepos $ARRAY
 else
 	for REPO in $@; do
 		ARRAY+=($REPO)
-		checkForSlashes $ARRAY
+		checkForSlashes $ARRAY1
 	done
 fi
