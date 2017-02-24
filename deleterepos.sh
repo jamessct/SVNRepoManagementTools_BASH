@@ -1,5 +1,6 @@
 #!/bin/bash
 
+INPUT=@
 REPOS="/var/svn"
 GREEN="\033[1;32m"
 RED="\033[1;31m"
@@ -10,12 +11,13 @@ if [ $# -eq 0 ]; then
 		rm -rf $REPOS/*
 		echo -e "${YELLOW}$REPO has been removed."
 	done
-	echo -e "${GREEN}SUCCESS! message (:"
+	echo -e "${GREEN}SUCCESS! $REPOS is empty."
 else
-	for ARG in $@; do
+	for ARG in $INPUT; do
 		if [ -d $REPOS/$ARG ]; then
 			rm -rf $REPOS/$ARG
-			echo -e "${GREEN}Success! $ARG has been removed from $REPOS."
+			echo -e "${GREEN}Success! $REPOS/$ARG has been removedy
+			."
 		else
 			echo -e "${RED}$REPOS/$ARG does not exist."
 		fi
