@@ -9,7 +9,7 @@ GREEN="\033[1;32m"
 RED="\033[1;31m"
 
 sortArguments() {
-	for ARG in $@; do
+	for ARG in $INPUT; do
 		if [[ -n ${INPUT//[0-9]/} ]]; then
 			if [ -d $SVN/$INPUT ]; then
 				echo -e "${RED}ERROR! A directory already exists at $SVN/$INPUT. No action will be taken for this request."
@@ -38,7 +38,7 @@ incrementTests() {
 
 createRepo() {
 	for ITEM in ${ARRAY[@]}; do
-		mkdir $ITEM >2/Dev/Null
+		mkdir $ITEM 2>/Dev/Null
 		svnadmin create $ITEM
 		echo -e "${GREEN}SUCCESS! Your new repository has been created at $ITEM."
 	done	
@@ -49,5 +49,5 @@ if [ $# -eq 0 ]; then
 	ARRAY+=($REPO)
 	createRepo $ARRAY[@]
 else
-	sortArguments $@
+	sortArguments
 fi

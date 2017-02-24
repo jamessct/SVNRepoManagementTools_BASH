@@ -9,9 +9,10 @@ GREEN="\033[1;32m"
 
 cd $SVNREPO
 
+#Test arguments for '/'
 for ARG in $@; do
 	echo "$ARG"
-	if [ $ARG == "*/*" ]; then
+	if [[ $ARG == *"/"* ]]; then
 		for REPO in $ARG; do
 			ARRAY+=($REPO)
 		done
@@ -22,6 +23,7 @@ for ARG in $@; do
 	fi
 done
 
+#
 if [ $# -eq 0 ]; then
 	for REPO in *; do
 		ARRAY+=($REPO)
@@ -37,7 +39,7 @@ for REPO in ${ARRAY[@]}; do
 		vnadmin dump $SVNREPO/$REPO -r HEAD &>/dev/null | gzip > $TEMP/$REPO.svn.gzip
 		cp $TEMP/$REPO.svn.gzip $BACKUP/$REPO.svn.gzip
 		rm $TEMP/$REPO.svn.gzip
-		echo -e "${GREEN}Backup of $REPO complete."
+		echo -e "${GREEN}SUCCESS! Backup of $REPO complete."
 	else
 		echo -e "${RED}ERROR! The repository $REPO does not exist. No backup has been made for this argument."
 	fi
