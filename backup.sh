@@ -1,5 +1,6 @@
 #!/bin/bash
 
+INPUT=$@
 SVNREPO="/var/svn"
 TEMP="/var/tmp"
 BACKUP="/home/helix/backups"
@@ -43,8 +44,8 @@ if [ $# -eq 0 ]; then
 	done
 	backupRepos $ARRAY
 else
-	for REPO in $@; do
-		ARRAY+=($REPO)
-		checkForSlashes $ARRAY1
+	for REPO in $INPUT; do
+		ARRAY1+=($REPO)
 	done
+	checkForSlashes $ARRAY1
 fi
