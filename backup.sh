@@ -11,8 +11,9 @@ GREEN="\033[1;32m"
 
 checkForSlashes() {
 	for ARG in ${ARRAY1[@]}; do
-		if [[ $ARG == *"/"* ]]; then
-			for REPO in $ARRAY1; do
+		if [[ $ARG == "/var/svn"* ]]; then
+			for ITEM in $ARRAY1; do
+				REPO=${ITEM#$SVNREPO}
 				ARRAY+=($REPO)
 			done
 		else
@@ -27,12 +28,12 @@ checkForSlashes() {
 backupRepos() {
 	for REPO in ${ARRAY[@]}; do
 		if [ -f $SVNREPO/$REPO/format ]; then
-			svnadmin dump $SVNREPO/$REPO -r HEAD &>/dev/null | gzip > $TEMP$REPO.svn.gzip
-			cp $TEMP$REPO.svn.gzip $BACKUP$REPO.svn.gzip
-			rm $REMP$REPO.svn.gzip
-			echo -e "${GREEN}SUCCESS! Backup of $REPO complete."
+			svnadmin dump $SVNREPO/$REPO -r HEAD &>/dev/null | gzip > $TEMP/$REPO.svn.gzip
+			cp $TEMP/$REPO.svn.gzip $BACKUP/$REPO.svn.gzip
+			rm $REMP/$REPO.svn.gzip
+			echo -e "${GREEN}SUCCESS! Backup of $SVNREPO/$REPO complete."
 		else
-			echo -e "${RED}ERROR! The repository $REPO does not exist. No backup has been made for this argument."
+			echo -e "${RED}ERROR! The repository $SVNREPO/$REPO does not exist. No backup has been made for this argument."
 		fi
 	done
 }
@@ -41,7 +42,7 @@ cd $SVNREPO
 
 if [ $# -eq 0 ]; then
 	for REPO in *; do
-		ARRAY+=($SVNREPO/$REPO)
+		ARRAY+=($REPO)
 	done
 	backupRepos $ARRAY
 else
