@@ -12,17 +12,14 @@ GREEN="\033[1;32m"
 checkForSlashes() {
 	for ARG in ${ARRAY1[@]}; do
 		if [[ $ARG == "/var/svn"* ]]; then
-			for ITEM in $ARRAY1; do
-				REPO=${ITEM#$SVNREPO}
-				ARRAY+=($REPO)
-			done
+			REPO=${ITEM#$SVNREPO}
+			ARRAY+=($REPO)
+		
 		else
-			for REPO in $ARRAY1; do
-				ARRAY+=($SVNREPO/$REPO)
-			done
-		fi
-		backupRepo $ARRAY
+			ARRAY+=($SVNREPO/$REPO)
+		fi		
 	done
+	backupRepo $ARRAY
 }
 
 backupRepos() {
