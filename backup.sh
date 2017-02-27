@@ -9,22 +9,6 @@ INC="0"
 RED="\033[1;31m"
 GREEN="\033[1;32m"
 
-checkForArguments() {
-	cd $SVNREPO
-
-	if [ $# -eq 0 ]; then
-		for REPO in *; do
-			ARRAY+=($SVNREPO/$REPO)
-		done
-		backupRepos $ARRAY
-	else
-		for REPO in $INPUT; do
-			ARRAY1+=($REPO)
-		done
-		checkForSlashes $ARRAY1
-	fi
-}
-
 checkForSlashes() {
 	for ARG in ${ARRAY1[@]}; do
 		if [[ $ARG == *"/"* ]]; then
@@ -53,4 +37,16 @@ backupRepos() {
 	done
 }
 
-checkForArguments()
+cd $SVNREPO
+
+if [ $# -eq 0 ]; then
+	for REPO in *; do
+		ARRAY+=($SVNREPO/$REPO)
+	done
+	backupRepos $ARRAY
+else
+	for REPO in $INPUT; do
+		ARRAY1+=($REPO)
+	done
+	checkForSlashes $ARRAY1
+fi
