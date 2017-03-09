@@ -32,7 +32,7 @@ incrementTests() {
 createRepo() {
 	for ITEM in ${ARRAY[@]}; do
 		if [ -d $ITEM ]; then
-			echo -e "${RED}ERROR! A directory already exists at $SVN/$INPUT. No action will be taken for this request."
+			echo -e "${RED}ERROR! A directory already exists at $ITEM. No action will be taken for this request."
 		else
 			mkdir $ITEM 2>/Dev/Null
 			svnadmin create $ITEM
