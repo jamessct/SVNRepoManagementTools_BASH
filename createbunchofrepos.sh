@@ -4,7 +4,6 @@
 INC="0"
 SVN="/var/svn"
 INPUT=$@
-
 GREEN="\033[1;32m"
 RED="\033[1;31m"
 
