@@ -25,7 +25,7 @@ sortArguments() {
 incrementTests() {
 	until [ $INC = $ARG ]; do	
 		INC=$((INC+1))
-		ARRAY+=($SVN/test/$INC)
+		ARRAY+=($SVN/test$INC)
 	done
 	createRepo $ARRAY[@]
 }
@@ -35,7 +35,7 @@ createRepo() {
 		if [ -d $ITEM ]; then
 			echo -e "${RED}ERROR! A directory already exists at $ITEM. No action will be taken for this request."
 		else
-			mkdir $ITEM 2>/Dev/Null
+			mkdir $ITEM 2>/dev/null
 			svnadmin create $ITEM
 			echo -e "${GREEN}SUCCESS! Your new repository has been created at $ITEM."
 		fi
