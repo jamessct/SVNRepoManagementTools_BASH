@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/bashre	
+
 
 INC="0"
 SVN="/var/svn"
@@ -37,6 +38,7 @@ createRepo() {
 			mkdir $ITEM 2>/Dev/Null
 			svnadmin create $ITEM
 			echo -e "${GREEN}SUCCESS! Your new repository has been created at $ITEM."
+		fi
 	done	
 }
 

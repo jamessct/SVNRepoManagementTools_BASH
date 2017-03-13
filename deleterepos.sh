@@ -17,7 +17,6 @@ else
 		if [ -d $REPOS/$ARG ]; then
 			rm -rf $REPOS/$ARG
 			echo -e "${GREEN}SUCCESS! $REPOS/$ARG has been removed."
-			."
 		else
 			echo -e "${RED}$REPOS/$ARG does not exist."
 		fi
