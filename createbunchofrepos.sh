@@ -1,4 +1,4 @@
-#!/bin/bashre	
+#!/bin/bash	
 
 
 INC="0"

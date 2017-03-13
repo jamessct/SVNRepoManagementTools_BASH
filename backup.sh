@@ -33,7 +33,7 @@ backupRepos() {
 		else
 			echo -e "${RED}ERROR! The repository $SVNREPO/$REPO does not exist. No backup has been made for this argument."
 		fi
-	done
+	done 
 }
 
 cd $SVNREPO
